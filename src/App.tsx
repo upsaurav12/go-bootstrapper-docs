@@ -5,6 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Introduction from "./pages/docs/Introduction";
+import Installation from "./pages/docs/Installation";
+import QuickStart from "./pages/docs/QuickStart";
+import CLIOptions from "./pages/docs/CLIOptions";
+import ProjectStructure from "./pages/docs/ProjectStructure";
+import Roadmap from "./pages/docs/Roadmap";
+import Contributing from "./pages/docs/Contributing";
+import License from "./pages/docs/License";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +24,14 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/docs" element={<Introduction />} />
+          <Route path="/docs/installation" element={<Installation />} />
+          <Route path="/docs/quick-start" element={<QuickStart />} />
+          <Route path="/docs/cli-options" element={<CLIOptions />} />
+          <Route path="/docs/project-structure" element={<ProjectStructure />} />
+          <Route path="/docs/roadmap" element={<Roadmap />} />
+          <Route path="/docs/contributing" element={<Contributing />} />
+          <Route path="/docs/license" element={<License />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
