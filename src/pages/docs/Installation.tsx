@@ -16,19 +16,15 @@ export default function Installation() {
           </h1>
 
           <p className="text-base text-muted-foreground max-w-2xl">
-            Install BootstrapCLI using the Go toolchain and prepare your local
-            environment for creating and managing production-ready Go services.
+            Install BootstrapCLI using the Go toolchain or a prebuilt binary and
+            prepare your local environment for creating and managing
+            production-ready Go services.
           </p>
         </section>
 
         {/* Prerequisites */}
         <section className="mb-24 max-w-3xl">
-          <h2
-            id="prerequisites"
-            className="text-xl font-semibold mb-6"
-          >
-            Prerequisites
-          </h2>
+          <h2 className="text-xl font-semibold mb-6">Prerequisites</h2>
 
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="rounded-lg border border-border bg-card/60 p-5">
@@ -36,143 +32,115 @@ export default function Installation() {
                 Go 1.20 or newer
               </h3>
               <p className="text-xs text-muted-foreground">
-                Required to build and install the CLI using the official Go
-                toolchain.
+                Required when installing via the Go toolchain.
               </p>
             </div>
 
             <div className="rounded-lg border border-border bg-card/60 p-5">
               <h3 className="text-sm uppercase tracking-widest font-medium mb-1">
-                GOPATH/bin in PATH
+                PATH configured
               </h3>
               <p className="text-xs text-muted-foreground">
                 Ensures the{" "}
                 <code className="text-foreground">bootstrap</code> command is
-                accessible from your terminal.
+                available globally.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Install */}
+        {/* Install via go install */}
         <section className="mb-24 max-w-3xl">
-          <h2
-            id="install-via-go-install"
-            className="text-xl font-semibold mb-4"
-          >
-            Install via go install
+          <h2 className="text-xl font-semibold mb-4">
+            Install via go install (recommended)
           </h2>
 
           <p className="mb-4 text-sm text-muted-foreground">
-            The recommended way to install BootstrapCLI is using{" "}
-            <code className="text-foreground">go install</code>, which fetches
-            the source code, builds the binary, and installs it into your Go
-            workspace.
+            This method uses the official Go toolchain and automatically builds
+            the CLI from source.
           </p>
 
           <CodeBlock code="go install github.com/upsaurav12/bootstrap@latest" />
 
           <p className="mt-4 text-sm text-muted-foreground">
-            This installs the latest stable version of the CLI. The binary will
-            be placed in{" "}
+            The binary is installed to{" "}
             <code className="text-foreground">$(go env GOPATH)/bin</code>.
           </p>
         </section>
 
-        {/* Verify */}
+        {/* Install via binary */}
         <section className="mb-24 max-w-3xl">
-          <h2
-            id="verify-installation"
-            className="text-xl font-semibold mb-4"
-          >
-            Verify Installation
+          <h2 className="text-xl font-semibold mb-4">
+            Install via Prebuilt Binary
           </h2>
 
-          <p className="mb-4 text-sm text-muted-foreground">
-            After installation, verify that the CLI is available:
+          <p className="mb-6 text-sm text-muted-foreground">
+            If you do not have Go installed, you can download a prebuilt binary
+            from GitHub Releases. Choose the binary that matches your operating
+            system and CPU architecture.
           </p>
 
-          <CodeBlock code="bootstrap --version" />
-
-          <p className="mt-4 text-sm text-muted-foreground">
-            If a version string is printed, BootstrapCLI has been installed
-            successfully.
-          </p>
-        </section>
-
-        {/* Help */}
-        <section className="mb-24 max-w-3xl">
-          <h2
-            id="getting-help"
-            className="text-xl font-semibold mb-4"
-          >
-            Getting Help
-          </h2>
-
-          <p className="mb-4 text-sm text-muted-foreground">
-            To see all available commands, flags, and descriptions:
-          </p>
-
-          <CodeBlock code="bootstrap --help" />
-        </section>
-
-        {/* Troubleshooting */}
-        <section className="mb-24 max-w-3xl">
-          <h2
-            id="troubleshooting"
-            className="text-xl font-semibold mb-8"
-          >
-            Troubleshooting
-          </h2>
-
-          <div className="space-y-12">
+          <div className="space-y-8">
+            {/* Linux */}
             <div>
-              <h3
-                id="command-not-found"
-                className="text-sm uppercase tracking-widest font-medium mb-2"
-              >
-                Command not found
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                Linux (amd64)
               </h3>
-
-              <p className="mb-4 text-sm text-muted-foreground">
-                If your shell cannot find the{" "}
-                <code className="text-foreground">bootstrap</code> command,
-                ensure that your Go bin directory is included in your PATH:
-              </p>
-
               <CodeBlock
-                code={`# Add to your shell config (.bashrc, .zshrc, etc.)
-export PATH="$PATH:$(go env GOPATH)/bin"`}
                 language="bash"
+                code={`curl -L https://github.com/upsaurav12/bootstrap/releases/download/v0.1.4/bootstrap-linux-amd64 \\
+  -o bootstrap
+chmod +x bootstrap
+sudo mv bootstrap /usr/local/bin/bootstrap`}
               />
             </div>
 
+            {/* macOS Intel */}
             <div>
-              <h3
-                id="permission-denied"
-                className="text-sm uppercase tracking-widest font-medium mb-2"
-              >
-                Permission denied
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                macOS (Intel)
               </h3>
+              <CodeBlock
+                language="bash"
+                code={`curl -L https://github.com/upsaurav12/bootstrap/releases/download/v0.1.4/bootstrap-darwin-amd64 \\
+  -o bootstrap
+chmod +x bootstrap
+sudo mv bootstrap /usr/local/bin/bootstrap`}
+              />
+            </div>
 
-              <p className="text-sm text-muted-foreground">
-                Make sure your user account has write permissions for the Go
-                workspace directory. Avoid running{" "}
-                <code className="text-foreground">go install</code> with{" "}
-                <code className="text-foreground">sudo</code>.
-              </p>
+            {/* macOS Apple Silicon */}
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                macOS (Apple Silicon)
+              </h3>
+              <CodeBlock
+                language="bash"
+                code={`curl -L https://github.com/upsaurav12/bootstrap/releases/download/v0.1.4/bootstrap-darwin-arm64 \\
+  -o bootstrap
+chmod +x bootstrap
+sudo mv bootstrap /usr/local/bin/bootstrap`}
+              />
             </div>
           </div>
         </section>
 
+        {/* Verify */}
+        <section className="mb-24 max-w-3xl">
+          <h2 className="text-xl font-semibold mb-4">
+            Verify Installation
+          </h2>
+
+          <CodeBlock code="bootstrap --version" />
+
+          <p className="mt-4 text-sm text-muted-foreground">
+            A version string confirms that BootstrapCLI is installed correctly.
+          </p>
+        </section>
+
         {/* Next steps */}
         <section className="rounded-xl border border-border bg-muted/30 p-8">
-          <h2
-            id="next-steps"
-            className="text-lg font-semibold mb-2"
-          >
-            Next Steps
-          </h2>
+          <h2 className="text-lg font-semibold mb-2">Next Steps</h2>
 
           <p className="text-sm text-muted-foreground">
             Continue with the{" "}
@@ -182,7 +150,7 @@ export PATH="$PATH:$(go env GOPATH)/bin"`}
             >
               Quick Start Guide
             </a>{" "}
-            to scaffold your first project using BootstrapCLI.
+            to scaffold your first project.
           </p>
         </section>
       </article>
