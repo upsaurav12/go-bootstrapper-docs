@@ -63,6 +63,8 @@ Below is the user's input:
 
 `
 
+const apiUrl = import.meta.env.VITE_RENDER_URL;
+
 function colorizeYaml(yaml: string) {
   return yaml.split("\n").map((line, i) => {
     // comments
@@ -151,7 +153,7 @@ const handleSubmit = async () => {
   setYamlName(null);
 
   try {
-    const res = await axios.post("http://localhost:5000/api/generate/", {
+    const res = await axios.post(`${apiUrl}/api/generate/`, {
       prompt: prompt + value,
     });
     const nonYaml = extractNonYaml(res.data.text);
