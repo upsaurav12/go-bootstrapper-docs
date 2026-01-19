@@ -13,6 +13,7 @@ import ProjectStructure from "./pages/docs/ProjectStructure";
 import Roadmap from "./pages/docs/Roadmap";
 import Contributing from "./pages/docs/Contributing";
 import License from "./pages/docs/License";
+import  Prompt  from "./pages/docs/UserPrompt";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,8 @@ const App = () => (
           <Route path="/docs/roadmap" element={<Roadmap />} />
           <Route path="/docs/contributing" element={<Contributing />} />
           <Route path="/docs/license" element={<License />} />
+          <Route path="/docs/prompt" element={<Prompt />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

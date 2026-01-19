@@ -14,11 +14,11 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
+            {/* <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
               <span className="text-lg font-bold text-primary-foreground">Go</span>
-            </div>
+            </div> */}
             <span className="hidden font-bold sm:inline-block">
-              Go Bootstrapper
+              BootstrapCLI
             </span>
           </Link>
 

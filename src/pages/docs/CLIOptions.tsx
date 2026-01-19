@@ -4,158 +4,255 @@ import { CodeBlock } from "@/components/docs/CodeBlock";
 export default function CLIOptions() {
   return (
     <DocsLayout>
-      <article className="prose prose-slate dark:prose-invert max-w-none">
-        <h1 id="cli-options">CLI Options</h1>
-        
-        <p className="lead">
-          Complete reference for all Go Bootstrapper command-line options.
-        </p>
+      <article className="max-w-none">
+        {/* Hero */}
+        <section className="mb-16">
+          <h1 className="text-4xl font-bold tracking-tight mb-4">
+            CLI Options
+          </h1>
 
-        <h2 id="basic-usage">Basic Usage</h2>
-        
-        <CodeBlock code="bootstrap new <project-name> [options]" />
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl">
+            Reference documentation for all supported BootstrapCLI commands and
+            flags.
+          </p>
+        </section>
 
-        <h2 id="available-options">Available Options</h2>
+        {/* Basic usage */}
+        <section className="mb-24">
+          <h2
+            id="basic-usage"
+            className="text-2xl font-semibold mb-4"
+          >
+            Basic Usage
+          </h2>
 
-        <div className="overflow-x-auto">
-          <table>
-            <thead>
-              <tr>
-                <th>Option</th>
-                <th>Values</th>
-                <th>Default</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>--type</code></td>
-                <td><code>rest</code>, <code>cli</code>, <code>microservice</code></td>
-                <td><code>rest</code></td>
-                <td>Type of project to generate</td>
-              </tr>
-              <tr>
-                <td><code>--router</code></td>
-                <td><code>gin</code>, <code>echo</code>, <code>chi</code>, <code>fiber</code></td>
-                <td><code>gin</code></td>
-                <td>HTTP router framework</td>
-              </tr>
-              <tr>
-                <td><code>--db</code></td>
-                <td><code>postgres</code>, <code>mysql</code>, <code>mongodb</code>, <code>none</code></td>
-                <td><code>none</code></td>
-                <td>Database to integrate</td>
-              </tr>
-              <tr>
-                <td><code>--port</code></td>
-                <td>Any valid port number</td>
-                <td><code>8080</code></td>
-                <td>Server port</td>
-              </tr>
-              <tr>
-                <td><code>--with-docker</code></td>
-                <td><code>true</code>, <code>false</code></td>
-                <td><code>false</code></td>
-                <td>Include Dockerfile and docker-compose</td>
-              </tr>
-              <tr>
-                <td><code>--with-tests</code></td>
-                <td><code>true</code>, <code>false</code></td>
-                <td><code>true</code></td>
-                <td>Generate test files</td>
-              </tr>
-              <tr>
-                <td><code>--with-swagger</code></td>
-                <td><code>true</code>, <code>false</code></td>
-                <td><code>false</code></td>
-                <td>Add Swagger/OpenAPI docs</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <CodeBlock code="bootstrap new <project-name> [flags]" />
 
-        <h2 id="examples">Examples</h2>
+          <p className="mt-4 text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
+            CLI flags are intended for quick project creation. For reproducible
+            and team-based workflows, prefer the YAML-based{" "}
+            <code className="font-mono">apply</code> command.
+          </p>
+        </section>
 
-        <h3 id="example-basic-rest-api">Basic REST API</h3>
+        {/* Options table */}
+        <section className="mb-24">
+          <h2
+            id="available-options"
+            className="text-2xl font-semibold mb-6"
+          >
+            Available Flags (bootstrap new)
+          </h2>
 
-        <CodeBlock code="bootstrap new myapi --type=rest --router=gin" />
+          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+            <table className="min-w-full text-sm">
+              <thead className="bg-slate-50 dark:bg-slate-900">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold">Flag</th>
+                  <th className="px-4 py-3 text-left font-semibold">Values</th>
+                  <th className="px-4 py-3 text-left font-semibold">Default</th>
+                  <th className="px-4 py-3 text-left font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                {[
+                  {
+                    opt: "--type",
+                    values: "rest",
+                    def: "rest",
+                    desc: "Type of project to generate"
+                  },
+                  {
+                    opt: "--router",
+                    values: "gin, echo, chi, fiber",
+                    def: "gin",
+                    desc: "HTTP router framework"
+                  },
+                  {
+                    opt: "--db",
+                    values: "postgres, mysql, none",
+                    def: "none",
+                    desc: "Database integration (enables Docker support)"
+                  },
+                  {
+                    opt: "--port",
+                    values: "Any valid port",
+                    def: "8080",
+                    desc: "Application listening port"
+                  },
+                  {
+                    opt: "--entities",
+                    values: "comma-separated names",
+                    def: "none",
+                    desc: "Generate initial entities (e.g. user,order)"
+                  }
+                ].map((row) => (
+                  <tr key={row.opt}>
+                    <td className="px-4 py-3 font-mono">{row.opt}</td>
+                    <td className="px-4 py-3 font-mono">{row.values}</td>
+                    <td className="px-4 py-3 font-mono">{row.def}</td>
+                    <td className="px-4 py-3">{row.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-        <h3 id="example-with-database">REST API with PostgreSQL</h3>
+        {/* Apply */}
+        <section className="mb-24">
+          <h2
+            id="apply-command"
+            className="text-2xl font-semibold mb-4"
+          >
+            YAML-Based Workflow (apply)
+          </h2>
 
-        <CodeBlock code="bootstrap new myapi --type=rest --router=gin --db=postgres" />
+          <p className="mb-4 text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+            BootstrapCLI supports generating projects from a declarative YAML
+            configuration file. This approach is recommended for long-lived
+            services and team environments.
+          </p>
 
-        <h3 id="example-microservice">Microservice with Docker</h3>
+          <CodeBlock code="bootstrap apply --yaml=project.yaml" />
 
-        <CodeBlock code="bootstrap new myservice --type=microservice --router=fiber --db=mongodb --with-docker=true" />
+          <p className="mt-4 text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+            The YAML file acts as the source of truth for project configuration
+            and can be reviewed, versioned, and evolved over time.
+          </p>
+        </section>
 
-        <h3 id="example-full-featured">Full-Featured API</h3>
+        {/* Examples */}
+        <section className="mb-24">
+          <h2
+            id="examples"
+            className="text-2xl font-semibold mb-6"
+          >
+            Examples
+          </h2>
 
-        <CodeBlock code="bootstrap new myapp --type=rest --router=echo --db=postgres --port=3000 --with-docker=true --with-swagger=true" />
+          <div className="space-y-6">
+            <CodeBlock code="bootstrap new myapi --type=rest --router=gin" />
+            <CodeBlock code="bootstrap new myapi --type=rest --router=gin --db=postgres" />
+            <CodeBlock code="bootstrap new usersvc --router=chi --port=3000" />
+            <CodeBlock code="bootstrap apply --yaml=project.yaml" />
+          </div>
+        </section>
 
-        <h3 id="example-cli-tool">CLI Application</h3>
+        {/* Router comparison */}
+        <section className="mb-24">
+          <h2
+            id="router-comparison"
+            className="text-2xl font-semibold mb-8"
+          >
+            Router Comparison
+          </h2>
 
-        <CodeBlock code="bootstrap new mytool --type=cli" />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                name: "Gin",
+                desc: "Popular, minimal, and widely used.",
+                best: "General REST APIs"
+              },
+              {
+                name: "Echo",
+                desc: "High performance with built-in middleware.",
+                best: "Structured APIs"
+              },
+              {
+                name: "Chi",
+                desc: "Lightweight and net/http friendly.",
+                best: "Stdlib-focused projects"
+              },
+              {
+                name: "Fiber",
+                desc: "Fast, Express-inspired API.",
+                best: "High-throughput services"
+              }
+            ].map((r) => (
+              <div
+                key={r.name}
+                className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <h3 className="font-semibold mb-2">{r.name}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                  {r.desc}
+                </p>
+                <p className="text-sm">
+                  <strong>Best for:</strong> {r.best}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        <h2 id="router-comparison">Router Comparison</h2>
+        {/* Database options */}
+        <section className="mb-24">
+          <h2
+            id="database-options"
+            className="text-2xl font-semibold mb-6"
+          >
+            Database Options
+          </h2>
 
-        <h3 id="gin">Gin</h3>
-        <ul>
-          <li>Most popular Go web framework</li>
-          <li>Fast and minimalist</li>
-          <li>Great documentation</li>
-          <li><strong>Best for:</strong> General-purpose REST APIs</li>
-        </ul>
+          <div className="grid gap-6 sm:grid-cols-2 max-w-3xl">
+            {[
+              {
+                name: "PostgreSQL",
+                desc: "Relational database with Docker-based local setup."
+              },
+              {
+                name: "MySQL",
+                desc: "Alternative relational database option."
+              }
+            ].map((db) => (
+              <div
+                key={db.name}
+                className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <h3 className="font-semibold mb-2">{db.name}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {db.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        <h3 id="echo">Echo</h3>
-        <ul>
-          <li>High performance</li>
-          <li>Extensible middleware</li>
-          <li>Built-in request validation</li>
-          <li><strong>Best for:</strong> APIs requiring validation</li>
-        </ul>
+        {/* Global flags */}
+        <section className="mb-24">
+          <h2
+            id="global-flags"
+            className="text-2xl font-semibold mb-4"
+          >
+            Global Flags
+          </h2>
 
-        <h3 id="chi">Chi</h3>
-        <ul>
-          <li>Lightweight and composable</li>
-          <li>100% compatible with net/http</li>
-          <li>Excellent routing capabilities</li>
-          <li><strong>Best for:</strong> Standard library lovers</li>
-        </ul>
+          <CodeBlock
+            code={`--help, -h     Show help information
+--version, -v  Print version number`}
+            language="text"
+          />
+        </section>
 
-        <h3 id="fiber">Fiber</h3>
-        <ul>
-          <li>Express-inspired API</li>
-          <li>Extremely fast (built on Fasthttp)</li>
-          <li>Low memory footprint</li>
-          <li><strong>Best for:</strong> High-performance requirements</li>
-        </ul>
+        {/* Next steps */}
+        <section className="rounded-2xl border border-slate-200 bg-slate-50 p-8 dark:border-slate-800 dark:bg-slate-900">
+          <h2
+            id="next-steps"
+            className="text-xl font-semibold mb-2"
+          >
+            Next Steps
+          </h2>
 
-        <h2 id="database-options">Database Options</h2>
-
-        <h3 id="postgres">PostgreSQL</h3>
-        <p>Includes GORM integration with connection pooling and migrations support.</p>
-
-        <h3 id="mysql">MySQL</h3>
-        <p>GORM setup with MySQL driver and common configurations.</p>
-
-        <h3 id="mongodb">MongoDB</h3>
-        <p>Official MongoDB Go driver with connection management.</p>
-
-        <h2 id="global-flags">Global Flags</h2>
-
-        <CodeBlock 
-          code={`--help, -h     Show help information
---version, -v  Print version number
---verbose      Enable verbose logging`}
-          language="text"
-        />
-
-        <h2 id="next-steps">Next Steps</h2>
-
-        <p>
-          Learn about the <a href="/docs/project-structure">generated project structure</a> or
-          follow the <a href="/docs/tutorials/rest-api">REST API tutorial</a>.
-        </p>
+          <p className="text-slate-600 dark:text-slate-400">
+            Learn more about the{" "}
+            <a href="/docs/project-structure" className="underline">
+              generated project structure
+            </a>{" "}
+            or explore the YAML-based workflow for managing long-lived services.
+          </p>
+        </section>
       </article>
     </DocsLayout>
   );

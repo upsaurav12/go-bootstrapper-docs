@@ -4,210 +4,337 @@ import { CodeBlock } from "@/components/docs/CodeBlock";
 export default function ProjectStructure() {
   return (
     <DocsLayout>
-      <article className="prose prose-slate dark:prose-invert max-w-none">
-        <h1 id="project-structure">Project Structure</h1>
-        
-        <p className="lead">
-          Understanding the folder structure and organization of bootstrapped projects.
-        </p>
+      <article className="max-w-none font-ascii">
+        {/* Hero */}
+        <section className="mb-20">
+          <div className="text-xs tracking-widest text-muted-foreground mb-3">
+            $ bootstrap layout
+          </div>
 
-        <h2 id="overview">Overview</h2>
-        
-        <p>
-          Go Bootstrapper follows the{" "}
-          <a href="https://github.com/golang-standards/project-layout" target="_blank" rel="noreferrer">
-            Standard Go Project Layout
-          </a>{" "}
-          with some opinionated additions for web applications.
-        </p>
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+            Project Structure
+          </h1>
 
-        <h2 id="structure">Complete Structure</h2>
+          <p className="text-base text-muted-foreground max-w-3xl">
+            Learn how Go Bootstrapper organizes projects and why this structure
+            scales effectively for production-grade Go services.
+          </p>
+        </section>
 
-        <CodeBlock 
-          code={`myproject/
+        {/* Overview */}
+        <section className="mb-24 max-w-3xl">
+          <h2 id="overview" className="text-xl font-semibold mb-4">
+            Overview
+          </h2>
+
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Go Bootstrapper follows the{" "}
+            <a
+              href="https://github.com/golang-standards/project-layout"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-foreground"
+            >
+              Standard Go Project Layout
+            </a>{" "}
+            with opinionated extensions for HTTP APIs, background services, and
+            containerized deployments.
+          </p>
+        </section>
+
+        {/* Tree */}
+        <section className="mb-24">
+          <h2 id="structure" className="text-xl font-semibold mb-4">
+            Complete Layout
+          </h2>
+
+          <CodeBlock
+            code={`myproject/
 ├── cmd/
 │   └── server/
-│       └── main.go              # Application entrypoint
+│       └── main.go
 ├── internal/
-│   ├── handlers/                # HTTP request handlers
-│   │   ├── health.go
-│   │   └── user.go
-│   ├── models/                  # Data models
-│   │   └── user.go
-│   ├── routes/                  # Route definitions
-│   │   └── routes.go
-│   ├── middleware/              # Custom middleware
-│   │   └── auth.go
-│   ├── config/                  # Configuration
-│   │   └── config.go
-│   └── database/                # Database connection
-│       └── db.go
-├── pkg/                         # Public libraries (optional)
-│   └── utils/
-├── migrations/                  # Database migrations
-│   └── 001_create_users.sql
-├── tests/                       # Integration tests
-│   └── api_test.go
-├── scripts/                     # Build and utility scripts
-│   └── migrate.sh
-├── docs/                        # Documentation
-│   └── api.md
-├── .env.example                 # Environment variables template
-├── .gitignore
-├── .golangci.yml               # Linter configuration
-├── Dockerfile                   # Docker image definition
-├── docker-compose.yml          # Local development setup
-├── Makefile                     # Build automation
+│   ├── handlers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── config/
+│   └── database/
+├── pkg/
+├── migrations/
+├── tests/
+├── scripts/
+├── docs/
+├── .env.example
+├── .golangci.yml
+├── Dockerfile
+├── docker-compose.yml
+├── Makefile
 ├── go.mod
 ├── go.sum
 └── README.md`}
-          language="text"
-        />
+            language="text"
+          />
+        </section>
 
-        <h2 id="directory-breakdown">Directory Breakdown</h2>
+        {/* cmd */}
+        <section className="mb-24 max-w-4xl">
+          <h2 id="cmd" className="text-xl font-semibold mb-4">
+            cmd/
+          </h2>
 
-        <h3 id="cmd">cmd/</h3>
-        <p>
-          Contains the main application(s). Each subdirectory is a separate executable.
-          Keep <code>cmd/</code> minimal — it should only initialize and run the app.
-        </p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Application entrypoints. Each subdirectory produces a standalone
+            binary. Keep this layer minimal and free of business logic.
+          </p>
 
-        <CodeBlock 
-          code={`// cmd/server/main.go
+          <CodeBlock
+            code={`// cmd/server/main.go
 package main
 
 import (
-    "myproject/internal/config"
-    "myproject/internal/routes"
+  "myproject/internal/config"
+  "myproject/internal/routes"
 )
 
 func main() {
-    cfg := config.Load()
-    router := routes.SetupRouter()
-    router.Run(cfg.Port)
+  cfg := config.Load()
+  router := routes.SetupRouter()
+  router.Run(cfg.Port)
 }`}
-          language="go"
-        />
+            language="go"
+          />
+        </section>
 
-        <h3 id="internal">internal/</h3>
-        <p>
-          Private application code. Go enforces that code in <code>internal/</code> cannot be
-          imported by external projects.
-        </p>
+        {/* internal */}
+        <section className="mb-24 max-w-4xl">
+          <h2 id="internal" className="text-xl font-semibold mb-6">
+            internal/
+          </h2>
 
-        <h4>internal/handlers/</h4>
-        <p>HTTP request handlers (controllers in MVC terms).</p>
+          <p className="text-sm text-muted-foreground mb-10">
+            Private application code. Packages under{" "}
+            <code className="text-foreground">internal/</code> cannot be imported
+            by external modules, enforcing clean architectural boundaries.
+          </p>
 
-        <CodeBlock 
-          code={`// internal/handlers/user.go
-package handlers
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                handlers/
+              </h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                HTTP request handlers (controllers).
+              </p>
+
+              <CodeBlock
+                code={`package handlers
 
 func GetUser(c *gin.Context) {
-    // Handler logic
+  // Handler logic
 }`}
-          language="go"
-        />
+                language="go"
+              />
+            </div>
 
-        <h4>internal/models/</h4>
-        <p>Data models and business logic.</p>
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                models/
+              </h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Domain models and business logic.
+              </p>
 
-        <CodeBlock 
-          code={`// internal/models/user.go
-package models
+              <CodeBlock
+                code={`package models
 
 type User struct {
-    ID    uint   \`json:"id"\`
-    Name  string \`json:"name"\`
-    Email string \`json:"email"\`
+  ID    uint
+  Name  string
+  Email string
 }`}
-          language="go"
-        />
+                language="go"
+              />
+            </div>
 
-        <h4>internal/routes/</h4>
-        <p>Route definitions and grouping.</p>
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                routes/
+              </h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Route registration and grouping.
+              </p>
 
-        <CodeBlock 
-          code={`// internal/routes/routes.go
-package routes
+              <CodeBlock
+                code={`package routes
 
 func SetupRouter() *gin.Engine {
-    r := gin.Default()
-    
-    r.GET("/health", handlers.HealthCheck)
-    
-    api := r.Group("/api/v1")
-    {
-        api.GET("/users", handlers.GetUsers)
-        api.POST("/users", handlers.CreateUser)
-    }
-    
-    return r
+  r := gin.Default()
+  r.GET("/health", handlers.HealthCheck)
+  return r
 }`}
-          language="go"
-        />
+                language="go"
+              />
+            </div>
 
-        <h4>internal/config/</h4>
-        <p>Configuration loading from environment variables or files.</p>
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                config/
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Environment and configuration loading.
+              </p>
+            </div>
 
-        <h4>internal/database/</h4>
-        <p>Database connection setup and helpers.</p>
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                database/
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Database initialization and connection helpers.
+              </p>
+            </div>
+          </div>
+        </section>
 
-        <h3 id="pkg">pkg/</h3>
-        <p>
-          Public libraries that can be imported by external projects. Only add code here
-          if you intend to share it. Most projects can skip this directory.
-        </p>
+        {/* pkg */}
+        <section className="mb-24 max-w-3xl">
+          <h2 id="pkg" className="text-xl font-semibold mb-4">
+            pkg/
+          </h2>
 
-        <h3 id="migrations">migrations/</h3>
-        <p>SQL or migration files for database schema changes.</p>
+          <p className="text-sm text-muted-foreground">
+            Optional public libraries. Only use this directory for code intended
+            to be imported by external projects.
+          </p>
+        </section>
 
-        <h3 id="tests">tests/</h3>
-        <p>Integration and end-to-end tests. Unit tests should live alongside the code they test.</p>
+        {/* Tooling */}
+        <section className="mb-24 max-w-4xl">
+          <h2
+            id="configuration-files"
+            className="text-xl font-semibold mb-6"
+          >
+            Tooling & Configuration
+          </h2>
 
-        <h2 id="configuration-files">Configuration Files</h2>
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                Makefile
+              </h3>
+              <CodeBlock
+                code={`# Project variables
+APP_NAME := test
+BIN_DIR := bin
+MAIN_FILE := ./cmd/main.go
+PKG := ./...
 
-        <h3 id="makefile">Makefile</h3>
-        <p>Common development tasks:</p>
+# Go parameters
+GO ?= go
+LINTER := golangci-lint
 
-        <CodeBlock 
-          code={`build:
-\tgo build -o bin/server cmd/server/main.go
+.PHONY: all run build clean lint test tidy deps help
 
+all: build
+
+## Run the application
 run:
-\tgo run cmd/server/main.go
+	@echo ">> Running $(APP_NAME)..."
+	@$(GO) run $(MAIN_FILE)
 
-test:
-\tgo test -v ./...
+## Build the binary
+build:
+	@echo ">> Building binary..."
+	@mkdir -p $(BIN_DIR)
+	@$(GO) build -o $(BIN_DIR)/$(APP_NAME) $(MAIN_FILE)
+	@echo "✅ Build complete: $(BIN_DIR)/$(APP_NAME)"
 
+## Clean build artifacts
+clean:
+	@echo ">> Cleaning..."
+	@rm -rf $(BIN_DIR)
+	@$(GO) clean
+	@echo "🧹 Clean complete"
+
+## Lint the codebase
 lint:
-\tgolangci-lint run
+	@echo ">> Running linter..."
+	@$(LINTER) run $(PKG)
 
-migrate:
-\t./scripts/migrate.sh up`}
-          language="makefile"
-        />
+## Run unit tests with coverage
+test:
+	@echo ">> Running tests..."
+	@$(GO) test -v -cover $(PKG)
 
-        <h3 id="golangci-yml">.golangci.yml</h3>
-        <p>Linter configuration with sensible defaults for code quality.</p>
+## Format and tidy modules
+tidy:
+	@echo ">> Tidying up..."
+	@$(GO) fmt $(PKG)
+	@$(GO) mod tidy
 
-        <h3 id="docker">Docker Files</h3>
-        <p>Multi-stage Dockerfile for optimized production images.</p>
+## Install dependencies
+deps:
+	@echo ">> Installing dependencies..."
+	@$(GO) mod download
+                  `}
+                language="makefile"
+              />
+            </div>
 
-        <h2 id="best-practices">Best Practices</h2>
+            <div>
+              <h3 className="text-sm uppercase tracking-widest font-medium mb-2">
+                Docker
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Multi-stage Dockerfile and docker-compose configuration for
+                development and production builds.
+              </p>
+            </div>
+          </div>
+        </section>
 
-        <ul>
-          <li><strong>Keep cmd/ thin</strong> — Only initialization code</li>
-          <li><strong>Use internal/</strong> — Enforce package boundaries</li>
-          <li><strong>Organize by feature</strong> — Group related handlers, models, etc.</li>
-          <li><strong>Avoid circular dependencies</strong> — Models shouldn't import handlers</li>
-          <li><strong>Test alongside code</strong> — Unit tests in same package as code</li>
-        </ul>
+        {/* Best practices */}
+        <section className="mb-24 max-w-4xl">
+          <h2 id="best-practices" className="text-xl font-semibold mb-6">
+            Best Practices
+          </h2>
 
-        <h2 id="next-steps">Next Steps</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              "Keep cmd/ thin",
+              "Enforce boundaries with internal/",
+              "Organize by feature, not layer",
+              "Avoid circular dependencies",
+              "Place tests close to implementation"
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-md border border-border bg-card/60 p-4 text-xs text-muted-foreground"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
 
-        <p>
-          Ready to build something? Check out the <a href="/docs/tutorials/rest-api">REST API Tutorial</a>.
-        </p>
+        {/* Next steps */}
+        <section className="rounded-xl border border-border bg-muted/30 p-8">
+          <h2 id="next-steps" className="text-lg font-semibold mb-2">
+            Next Steps
+          </h2>
+
+          <p className="text-sm text-muted-foreground">
+            Continue with the{" "}
+            <a
+              href="/docs/tutorials/rest-api"
+              className="underline hover:text-foreground"
+            >
+              REST API tutorial
+            </a>{" "}
+            to see how this structure is applied in practice.
+          </p>
+        </section>
       </article>
     </DocsLayout>
   );

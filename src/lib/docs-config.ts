@@ -11,6 +11,7 @@ export const docsConfig: NavItem[] = [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Quick Start", href: "/docs/quick-start" },
+      {title: "Prompt" , href: "/docs/prompt"},
     ],
   },
   {
@@ -20,15 +21,15 @@ export const docsConfig: NavItem[] = [
       { title: "Project Structure", href: "/docs/project-structure" },
     ],
   },
-  {
-    title: "Tutorials",
-    items: [
-      { title: "Create REST API", href: "/docs/tutorials/rest-api" },
-      { title: "Using Routers", href: "/docs/tutorials/routers" },
-      { title: "Database Integration", href: "/docs/tutorials/database" },
-      { title: "Extend the CLI", href: "/docs/tutorials/extend" },
-    ],
-  },
+  // {
+  //   title: "Tutorials",
+  //   items: [
+  //     { title: "Create REST API", href: "/docs/tutorials/rest-api" },
+  //     { title: "Using Routers", href: "/docs/tutorials/routers" },
+  //     { title: "Database Integration", href: "/docs/tutorials/database" },
+  //     { title: "Extend the CLI", href: "/docs/tutorials/extend" },
+  //   ],
+  // },
   {
     title: "Community",
     items: [
