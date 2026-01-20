@@ -200,8 +200,11 @@ const handleSubmit = async () => {
     </h1>
 
     <p className="font-ascii text-sm tracking-wide text-muted-foreground max-w-xl mx-auto">
-        Provide a prompt. The project structure will be generated automatically.
-    </p>
+  Provide a prompt to generate a declarative YAML project specification.
+  This configuration can then be reviewed, edited, and applied to scaffold
+  your project.
+</p>
+
     </motion.div>
 
         {/* Streaming Answer */}

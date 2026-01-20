@@ -118,8 +118,7 @@ export default function Index() {
                 max-w-xl mx-auto mb-8
               "
             >
-              Scaffold real-world Go applications with routers, databases,
-              linters, Docker, and best practices — instantly.
+              Scaffold real-world Go applications with routers, databases in Docker, and best practices — instantly.
             </motion.p>
 
             <motion.div
