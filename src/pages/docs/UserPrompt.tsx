@@ -184,7 +184,7 @@ const handleSubmit = async () => {
 
   return (
     <DocsLayout>
-      <div className="w-[80vw] py-16 min-h-[calc(100vh-6rem)] flex flex-col">
+      <div className="w-full max-w-4xl mx-auto py-12 min-h-[calc(100vh-6rem)] flex flex-col">
         {/* Header */}
         <motion.div
   initial={{ opacity: 0, y: 12 }}

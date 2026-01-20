@@ -239,7 +239,7 @@ export default function Index() {
               Stop Rewriting the Same Setup
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground mb-8">
-              Focus on features. Let Go Bootstrapper handle the scaffolding.
+              Focus on features. Let BootstrapCLI handle the scaffolding.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

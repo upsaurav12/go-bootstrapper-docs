@@ -12,7 +12,7 @@ export default function Contributing() {
           </h1>
 
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl">
-            Thank you for your interest in contributing to Go Bootstrapper.
+            Thank you for your interest in contributing to BootstrapCLI.
             Every contribution—big or small—helps move the project forward.
           </p>
         </section>

@@ -16,7 +16,7 @@ export default function ProjectStructure() {
           </h1>
 
           <p className="text-base text-muted-foreground max-w-3xl">
-            Learn how Go Bootstrapper organizes projects and why this structure
+            Learn how BootstrapCLI organizes projects and why this structure
             scales effectively for production-grade Go services.
           </p>
         </section>
@@ -28,7 +28,7 @@ export default function ProjectStructure() {
           </h2>
 
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Go Bootstrapper follows the{" "}
+            BootstrapCLI follows the{" "}
             <a
               href="https://github.com/golang-standards/project-layout"
               target="_blank"

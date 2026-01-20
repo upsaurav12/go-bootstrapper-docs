@@ -6,7 +6,7 @@ export function Footer() {
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Go Bootstrapper</h3>
+            <h3 className="text-lg font-semibold mb-2">BootstrapCLI</h3>
             <p className="text-sm text-muted-foreground">
               Scaffold production-ready Golang projects with zero setup.
             </p>
