@@ -44,3 +44,16 @@ app.post("/api/generate", async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Groq proxy running on port ${process.env.PORT}`);
 });
+
+
+
+const SELF_URL = "https://go-bootstrapper-docs.onrender.com/ping";
+
+setInterval(async () => {
+  try {
+    await axios.get(SELF_URL);
+    console.log("Ping sent");
+  } catch (err) {
+    console.error("Ping failed:", err.message);
+  }
+}, 5 * 60 * 1000); // every 5 minutes

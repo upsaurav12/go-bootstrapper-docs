@@ -344,8 +344,121 @@ const handleSubmit = async () => {
               </button>
             </div>
           </div>
+
+
+
+          
         </div>
+
+        
       </div>
+
+
+
+      {/* Story + Features */}
+<motion.div
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="mb-16 space-y-6"
+>
+  {/* Story */}
+  <div className="glass rounded-xl border border-border p-6">
+    <div className="text-xs font-mono tracking-widest uppercase text-muted-foreground mb-3">
+      Why this exists
+    </div>
+    <p className="text-sm font-ascii text-muted-foreground leading-relaxed">
+
+      I build BootstrapCLI to reduce the time to setup new projects, and manual work on setting up routes, services, database, dockers etc.
+      I am using hard-coded templates for databases, frameworks, etc. I have also  add CLI command where users can generate a project by defining their requirements in YAML.
+      <br /><br />
+
+      Right Now, users have their own requirements and features, building hardcoded templates for each use case is not scalable. Note only code generation is helpful but the architecture and code which follows best practices also matters
+      when it comes to building a production ready project. As of now we have various tools which can generate code but they lack in deciding what is the best architecture for the project and code quality. 
+
+      <br /><br />
+
+      Yes there are AI platforms like Bolt.new, Lovable, Replit, Base44 etc. which can generate code but they are designed in less time for building only frontend applications and most focus on frontend design and code generation. 
+      They are not focused on building production ready backend applications with best practices and architecture in mind. They also focus more on making their tools as no-code platform which is very helful for non-technical users but what if a techinical user wants to add their own code
+      in the project it becomes messy and hard to maintain.
+
+      <br /><br />
+
+      I am building a platform where users can define their project requirements in natural language and get a project scaffolded with best practices and architecture in mind. The platform will also provide a YAML specification of the project which can be used to generate code, validate the architecture and also can be used as a single source of truth for the project.
+      And make sure that users own the code and can easily add their own code in the project without any mess. The platform will also provide a visualization of the architecture which will help users to understand the system better and also can be used to identify any architectural issues early on.
+
+      I want to add a project validator which will validate the architecture of the project and also can be used to identify any architectural issues early on. The validator will check for circular dependencies, deep dependency chains, incorrect async boundaries and also can provide suggestions for improving the architecture. This quality of the architecture is very important when it comes to building production ready applications and I want to make sure that users are following best practices and also can identify any issues early on before they become a problem in the future.
+    </p>
+  </div>
+
+
+    {/* Demo Video */}
+<div className="glass rounded-xl border border-border p-4">
+  <div className="text-xs font-mono tracking-widest uppercase text-muted-foreground mb-3">
+    Demo
+  </div>
+
+  <video
+    className="w-full rounded-lg border border-border"
+    controls
+    autoPlay
+    src="/bootstrap.mp4"
+    loop
+    muted
+  >
+    <source src="/bootstrap.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+  {/* Features */}
+  <div className="grid md:grid-cols-2 gap-6">
+    
+    {/* Feature 1 */}
+    <div className="glass rounded-xl border border-border p-5">
+      <div className="text-xs font-mono uppercase text-primary mb-2">
+        01 — Prompt → Architecture
+      </div>
+      <p className="text-sm text-muted-foreground font-ascii">
+        Converts natural language into services, dependencies, and system flow.
+        This defines the entire system upfront.
+      </p>
+    </div>
+
+    {/* Feature 2 */}
+    <div className="glass rounded-xl border border-border p-5">
+      <div className="text-xs font-mono uppercase text-primary mb-2">
+        02 — Visualization
+      </div>
+      <p className="text-sm text-muted-foreground font-ascii">
+        Service graph shows how components interact. Users understand the system
+        instantly without reading raw configuration.
+      </p>
+    </div>
+
+    {/* Feature 3 */}
+    <div className="glass rounded-xl border border-border p-5">
+      <div className="text-xs font-mono uppercase text-primary mb-2">
+        03 — YAML Spec
+      </div>
+      <p className="text-sm text-muted-foreground font-ascii">
+        Single source of truth. Drives validation and code generation. Ensures
+        consistency across environments.
+      </p>
+    </div>
+
+    {/* Feature 4 */}
+    <div className="glass rounded-xl border border-border p-5">
+      <div className="text-xs font-mono uppercase text-primary mb-2">
+        04 — Validation
+      </div>
+      <p className="text-sm text-muted-foreground font-ascii">
+        Detects architectural issues like circular dependencies, deep chains,
+        and incorrect async boundaries early.
+      </p>
+    </div>
+
+  </div>
+</motion.div>
     </DocsLayout>
   );
 }
