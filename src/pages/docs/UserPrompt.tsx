@@ -397,6 +397,20 @@ const handleSubmit = async () => {
     Demo
   </div>
 
+
+    <div className="text-lg font-ascii text-yellow-300 mb-2">
+    ⚠ Live Demo in Progress
+  </div>
+  {/* Animated indicator */}
+  <motion.div
+    className="mt-4 flex items-center justify-center gap-2 text-xs font-mono text-yellow-400/70"
+    animate={{ opacity: [0.4, 1, 0.4] }}
+    transition={{ duration: 1.5, repeat: Infinity }}
+  >
+    <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
+    building system...
+  </motion.div>
+
   <video
     className="w-full rounded-lg border border-border"
     controls
@@ -408,6 +422,11 @@ const handleSubmit = async () => {
     <source src="/bootstrap.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+
+
+    <div className="mt-4 text-xs font-mono text-muted-foreground/70">
+    coming soon
+  </div>
 </div>
 
   {/* Features */}
