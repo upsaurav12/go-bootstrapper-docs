@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Send, Sparkles, Bot, FileDown } from "lucide-react";
 import { DocsLayout } from "./DocsLayout";
 import axios  from 'axios'
+import { Link } from "lucide-react";
+import {Info} from 'lucide-react'
 const MOCK_RESPONSE = `
 I will generate a REST API project with the following characteristics:
 
@@ -230,15 +232,44 @@ const handleSubmit = async () => {
 )}
 
 
-        {/* YAML Output */}
 {yaml && yamlName && (
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3 }}
-    className="mb-16"
-  >
-    <div className="rounded-xl border border-border bg-background/40 backdrop-blur overflow-hidden">
+  <>
+    {/* Guide Banner */}
+    <div className="mb-4 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
+      <div className="flex items-start gap-3">
+        <Info className="mt-0.5 h-5 w-5 text-primary shrink-0" />
+
+        <div className="text-sm">
+          <p className="font-medium text-foreground">
+            Before using this YAML
+          </p>
+
+          <p className="mt-1 text-muted-foreground">
+            This project specification can only be used with the{" "}
+            <span className="font-medium text-foreground">
+              Bootstrap CLI
+            </span>
+            . Make sure the CLI is installed before running this configuration.
+          </p>
+
+          <Link
+            href="/installation"
+            className="mt-2 inline-flex items-center text-primary hover:underline"
+          >
+            View Installation Guide →
+          </Link>
+        </div>
+      </div>
+    </div>
+
+    {/* Existing YAML Card */}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="mb-16"
+    >
+          <div className="rounded-xl border border-border bg-background/40 backdrop-blur overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <div className="flex items-center gap-3">
@@ -285,7 +316,8 @@ const handleSubmit = async () => {
 
       </div>
     </div>
-  </motion.div>
+    </motion.div>
+  </>
 )}
 
 
@@ -347,10 +379,10 @@ const handleSubmit = async () => {
 
 
 
-          
+
         </div>
 
-        
+
       </div>
 
 
@@ -373,11 +405,11 @@ const handleSubmit = async () => {
       <br /><br />
 
       Right Now, users have their own requirements and features, building hardcoded templates for each use case is not scalable. Note only code generation is helpful but the architecture and code which follows best practices also matters
-      when it comes to building a production ready project. As of now we have various tools which can generate code but they lack in deciding what is the best architecture for the project and code quality. 
+      when it comes to building a production ready project. As of now we have various tools which can generate code but they lack in deciding what is the best architecture for the project and code quality.
 
       <br /><br />
 
-      Yes there are AI platforms like Bolt.new, Lovable, Replit, Base44 etc. which can generate code but they are designed in less time for building only frontend applications and most focus on frontend design and code generation. 
+      Yes there are AI platforms like Bolt.new, Lovable, Replit, Base44 etc. which can generate code but they are designed in less time for building only frontend applications and most focus on frontend design and code generation.
       They are not focused on building production ready backend applications with best practices and architecture in mind. They also focus more on making their tools as no-code platform which is very helful for non-technical users but what if a techinical user wants to add their own code
       in the project it becomes messy and hard to maintain.
 
@@ -431,7 +463,7 @@ const handleSubmit = async () => {
 
   {/* Features */}
   <div className="grid md:grid-cols-2 gap-6">
-    
+
     {/* Feature 1 */}
     <div className="glass rounded-xl border border-border p-5">
       <div className="text-xs font-mono uppercase text-primary mb-2">
