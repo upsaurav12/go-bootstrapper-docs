@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Send, Sparkles, Bot, FileDown } from "lucide-react";
 import { DocsLayout } from "./DocsLayout";
 import axios  from 'axios'
-import { Link } from "lucide-react";
-import {Info} from 'lucide-react'
+import { Info } from "lucide-react";
 const MOCK_RESPONSE = `
 I will generate a REST API project with the following characteristics:
 
@@ -115,6 +114,18 @@ function extractNonYaml(text: string): string {
 }
 
 
+const default_yaml = `
+  name: rest_api,
+  port: 8080,
+  arch: microservices,
+  router: gin,
+  db: postgres,
+  entities:
+    -user
+    -product
+`
+
+
 
 
 export default function Prompt() {
@@ -161,10 +172,19 @@ const handleSubmit = async () => {
     const nonYaml = extractNonYaml(res.data.text);
     const yaml = extractYaml(res.data.text);
 
+
     await streamResponse(nonYaml, yaml);
   } catch (error) {
     console.error("error while generating from AI:", error);
     setIsGenerating(false);
+
+    setYaml(default_yaml)
+      setResponse(
+    "Unable to generate a project specification. Showing a default YAML template."
+  );
+  setYamlName("bootstrap-template.yaml");
+  setIsGenerating(false);
+
   }
 
   setValue("");
@@ -231,45 +251,15 @@ const handleSubmit = async () => {
   </motion.div>
 )}
 
-
+{/* YAML Output */}
 {yaml && yamlName && (
-  <>
-    {/* Guide Banner */}
-    <div className="mb-4 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
-      <div className="flex items-start gap-3">
-        <Info className="mt-0.5 h-5 w-5 text-primary shrink-0" />
-
-        <div className="text-sm">
-          <p className="font-medium text-foreground">
-            Before using this YAML
-          </p>
-
-          <p className="mt-1 text-muted-foreground">
-            This project specification can only be used with the{" "}
-            <span className="font-medium text-foreground">
-              Bootstrap CLI
-            </span>
-            . Make sure the CLI is installed before running this configuration.
-          </p>
-
-          <Link
-            href="/installation"
-            className="mt-2 inline-flex items-center text-primary hover:underline"
-          >
-            View Installation Guide →
-          </Link>
-        </div>
-      </div>
-    </div>
-
-    {/* Existing YAML Card */}
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="mb-16"
-    >
-          <div className="rounded-xl border border-border bg-background/40 backdrop-blur overflow-hidden">
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3 }}
+    className="mb-16"
+  >
+    <div className="rounded-xl border border-border bg-background/40 backdrop-blur overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <div className="flex items-center gap-3">
@@ -288,6 +278,7 @@ const handleSubmit = async () => {
           >
             Copy
           </button>
+
           <button
             onClick={downloadYaml}
             className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground hover:opacity-90 transition"
@@ -298,28 +289,52 @@ const handleSubmit = async () => {
         </div>
       </div>
 
+      {/* Guide */}
+      <div className="flex items-start gap-3 border-b border-border bg-primary/5 px-4 py-3">
+        <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+
+        <div className="text-sm">
+          <p className="font-medium text-foreground">
+            Before using this configuration
+          </p>
+
+          <p className="mt-1 text-muted-foreground">
+            This YAML is intended for the <span className="font-medium text-foreground">Bootstrap CLI</span>.
+            Install the CLI first, then run this configuration to scaffold your project.
+          </p>
+
+          <a
+            href="/docs/installation"
+            className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+          >
+            View Installation Guide
+            <span aria-hidden>→</span>
+          </a>
+        </div>
+      </div>
+
       {/* Code Area */}
       <div className="relative">
-        {/* subtle left gutter */}
-        <div className="absolute left-0 top-0 h-full w-10 bg-background/60 border-r border-border" />
+        <div className="absolute left-0 top-0 h-full w-10 border-r border-border bg-background/60" />
 
         <div
-  className="
-    pl-14 pr-6 py-4
-    text-sm font-mono leading-relaxed
-    overflow-x-auto
-    whitespace-pre
-  "
->
-  {colorizeYaml(yaml)}
-</div>
-
+          className="
+            overflow-x-auto
+            whitespace-pre
+            pl-14
+            pr-6
+            py-4
+            text-sm
+            font-mono
+            leading-relaxed
+          "
+        >
+          {colorizeYaml(yaml)}
+        </div>
       </div>
     </div>
-    </motion.div>
-  </>
+  </motion.div>
 )}
-
 
         {/* Prompt Input */}
         <div className="mt-auto">
